@@ -68,6 +68,14 @@ const Home = () => {
             ) : (
                 <p>We're still working on our menu. Please come back later :)</p>
             )}
+            
+            <h2 id="about">About us</h2>
+            
+            <p>
+            "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
+            </p>
+            
+         
         </main>
        
     )
