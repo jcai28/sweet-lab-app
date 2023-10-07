@@ -54,7 +54,13 @@ export const Header = () => {
                     </Link>
                     {
                         isLoggedIn ? 
-                        <Button onClick={handleLogout}>Log Out</Button> : 
+                        (
+                            <>
+                            <Link to="/profile" className="text-xl">Profile</Link>
+                            <Button onClick={handleLogout}>Log Out</Button> 
+                            </>
+                        )
+                        : 
                         (
                             <>
                              <Link to="/login">Log In</Link>
