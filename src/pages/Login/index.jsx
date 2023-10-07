@@ -1,6 +1,10 @@
 import {useState} from "react";
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 
+axios.defaults.baseURL = 'http://localhost:8000'
 const Login = () => {
+    const navigate = useNavigate()
     const [data, setData] = useState(
         {
             email:"",
@@ -8,12 +12,26 @@ const Login = () => {
         }
     )
 
-    const loginUser = (e) =>{
+    const loginUser = async (e) =>{
         e.preventDefault()
+        const {email, password} = data;
+        try{
+            const{data} = await axios.post("/users/login", {
+                email, password
+            })
+            
+            if (!data.error){
+                localStorage.setItem("token", data.token)
+                window.dispatchEvent(new Event("storage"))
+                navigate("/")
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
     return (
         <div className="container mx-auto py-8">
-            <h1 className="text-2xl font-bold mb-6 text-center">Registration Form</h1>
+            <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
             <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={loginUser}>
             <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>

@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import {useState } from 'react';
+import axios from "axios"
+import { useNavigate } from 'react-router-dom';
 
-
+axios.defaults.baseURL = 'http://localhost:8000'
 const Register = () => {
+    const navigate = useNavigate()
     const [data, setData] = useState(
         {
             name:"",
@@ -13,12 +12,25 @@ const Register = () => {
             password:"", 
         }
     )
-  
+    const registerUser = async (e) =>{
+        e.preventDefault()
+        const {name, email, password} = data;
+        try{
+            const{data} = await axios.post("/users/register", {
+                name, email, password
+            })
+            if (!data.error){
+                navigate("/login")
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
     
     return (
         <div className="container mx-auto py-8">
-            <h1 className="text-2xl font-bold mb-6 text-center">Registration Form</h1>
-            <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={handleSubmit(submit)}>
+            <h1 className="text-2xl font-bold mb-6 text-center">Registration </h1>
+            <form className="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" onSubmit={registerUser}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">Name</label>
                     <input className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
