@@ -11,7 +11,7 @@ const Cart = () => {
         
         <div className="containerCart">
         
-        <h2 class="text-center w-full my-7" > Cart</h2>
+        <h2 className="text-center w-full my-7" > Cart</h2>
           <ul className="list">
             {cart.items.map(item => (
               <li key={item.food.id}>

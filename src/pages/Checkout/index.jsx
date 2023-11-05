@@ -3,15 +3,34 @@ import { useCart} from '../../Hooks/useCart';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-//import { createOrder } from '../../services/orderService';
+import axios from 'axios';
 import classes from './checkoutPage.module.css';
 import OrderItemsList from '../../components/OrderItemsList';
+axios.defaults.baseURL = 'http://localhost:8001'
 export default function CheckoutPage() {
   const { cart, clearCart } = useCart();
   //const { user } = useAuth();
   const navigate = useNavigate();
   const [order, setOrder] = useState({ ...cart });
 
+  axios.interceptors.request.use(
+    req => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        req.headers['access_token'] = token;
+      }
+      return req;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+  const createOrder = async order => {
+  try {
+    const { data } = axios.post('/orders/create', order);
+    return data;
+  } catch (error) {}
+};
   const {
     handleSubmit,
   } = useForm();
@@ -22,7 +41,7 @@ export default function CheckoutPage() {
         navigate('/login');
     }
     else{
-    // await createOrder({ ...order, name: data.name, address: data.address });
+    await createOrder({ ...order });
     clearCart();
     navigate('/');
     }

@@ -56,7 +56,7 @@ export const Header = () => {
                         isLoggedIn ? 
                         (
                             <>
-                            <Link to="/profile" className="text-xl">Profile</Link>
+                            <Link to="/order" className="text-xl">Order</Link>
                             <Button onClick={handleLogout}>Log Out</Button> 
                             </>
                         )

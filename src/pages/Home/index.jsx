@@ -61,7 +61,7 @@ const Home = () => {
         const fetchData = async () => {
           const productData = await getAll();
           setData(productData);
-          console.log(productData);
+        
         };
     
         fetchData();
@@ -69,7 +69,7 @@ const Home = () => {
 
     const numProduct = data.length;
     function Product({ productObj }) {
-        console.log(productObj)
+       
         const { addToCart } = useCart();
         const navigate = useNavigate();
         const handleAddToCart = () => {
