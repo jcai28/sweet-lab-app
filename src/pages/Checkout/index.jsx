@@ -43,7 +43,7 @@ export default function CheckoutPage() {
     else{
     await createOrder({ ...order });
     clearCart();
-    navigate('/');
+    navigate('/order');
     }
 
   };

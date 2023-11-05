@@ -33,11 +33,11 @@ export default function Order() {
   
 
     return (
-       <>
+       <div style={{ backgroundColor: '#f7f2e9' }}>
     
       {userOrder.length ? (
         userOrder.map((order) => (
-            <div className="container mx-auto py-8">
+            <div className="container mx-auto py-8" style={{ backgroundColor: '#f7f2e9' }}>
                 <h1>Order Number  {order.id}</h1>
           <OrderItemsList key={order.id} order={order} />
           </div>
@@ -52,7 +52,7 @@ export default function Order() {
         </div>
         </div>
       )}
-         </>
+         </div>
    
     )
 }
